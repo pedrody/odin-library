@@ -1,4 +1,10 @@
-const myLibrary = [];
+const myLibrary = [
+    new Book("White Nights", "Fyodor Dostoevsky", "80", "Yes"),
+    new Book("Crime and Punishment", "Fyodor Dostoevsky", "500", "No"),
+    new Book("The Brothers Karamazov", "Fyodor Dostoevsky", "800", "No"),
+    new Book("Love Is a Dog from Hell", "Charles Bukowski", "300", "No"),
+    new Book("Post Office", "Charles Bukowski", "200", "Yes")
+];
 
 function Book(title, author, pages, read) {
     if (!new.target) {
@@ -18,22 +24,23 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 function displayLibrary(library) {
-    library.forEach(book => {
-        const para = document.createElement("p");
-        para.textContent = `Title: ${book.title}, 
-                            Author: ${book.author}, 
-                            Pages: ${book.pages}, 
-                            Read: ${book.read}`;
-        document.body.append(para);
-    });
-}
+    const libraryTableBody = document.querySelector("#library-table > tbody");
 
-for (let i = 1; i <= 10; i++) {
-    addBookToLibrary(
-        `Book ${i}`,
-        `Author ${i}`,
-        `${i}00`,
-        "not read yet");
+    library.forEach(book => {
+        const newBookRow = libraryTableBody.insertRow(-1);
+
+        const title = newBookRow.insertCell(0);
+        title.textContent = `${book.title}`;
+
+        const author = newBookRow.insertCell(1);
+        author.textContent = `${book.author}`;
+
+        const pages = newBookRow.insertCell(2);
+        pages.textContent = `${book.pages}`;
+
+        const read = newBookRow.insertCell(3);
+        read.textContent = `${book.read}`;
+    });
 }
 
 displayLibrary(myLibrary);
