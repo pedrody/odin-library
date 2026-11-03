@@ -28,6 +28,7 @@ function displayLibrary(library) {
 
     libraryTableBody.replaceChildren();
 
+    // For each book create a row
     library.forEach(book => {
         const newBookRow = libraryTableBody.insertRow(-1);
 
@@ -42,7 +43,25 @@ function displayLibrary(library) {
 
         const read = newBookRow.insertCell(3);
         read.textContent = book.read ? "Yes" : "No";
+
+        const deleteBookBtn = document.createElement("button");
+        deleteBookBtn.textContent = "❌";
+        deleteBookBtn.classList.add("delete-book-btn");
+        deleteBookBtn.dataset.bookId = book.id;
+        deleteBookBtn.addEventListener("click", deleteEvent)
+
+        const buttonsCell = document.createElement("td");
+        buttonsCell.appendChild(deleteBookBtn);
+        newBookRow.appendChild(buttonsCell);
     });
+}
+
+const deleteEvent = (event) => {
+    const bookId = event.currentTarget.dataset.bookId;
+    const bookIndexToDelete = myLibrary.findIndex(book => book.id === bookId);
+    myLibrary.splice(bookIndexToDelete, 1);
+
+    displayLibrary(myLibrary);
 }
 
 const addNewBookDialog = document.querySelector("dialog");
