@@ -18,6 +18,10 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+Book.prototype.changeReadStatus = function () {
+    this.read = !this.read;
+}
+
 function addBookToLibrary(title, author, pages, read) {
     const book = new Book(title, author, pages, read);
     myLibrary.push(book);
@@ -44,6 +48,12 @@ function displayLibrary(library) {
         const read = newBookRow.insertCell(3);
         read.textContent = book.read ? "Yes" : "No";
 
+        const readStatusBtn = document.createElement("button");
+        readStatusBtn.textContent = "✅";
+        readStatusBtn.classList.add("status-book-btn");
+        readStatusBtn.dataset.bookId = book.id;
+        readStatusBtn.addEventListener("click", statusEvent);
+
         const deleteBookBtn = document.createElement("button");
         deleteBookBtn.textContent = "❌";
         deleteBookBtn.classList.add("delete-book-btn");
@@ -51,15 +61,36 @@ function displayLibrary(library) {
         deleteBookBtn.addEventListener("click", deleteEvent)
 
         const buttonsCell = document.createElement("td");
+        buttonsCell.appendChild(readStatusBtn);
         buttonsCell.appendChild(deleteBookBtn);
         newBookRow.appendChild(buttonsCell);
     });
 }
 
+const statusEvent = (event) => {
+    const bookId = event.currentTarget.dataset.bookId;
+    const bookIndex = myLibrary.findIndex(book => book.id === bookId);
+
+    if (bookIndex === -1) {
+        console.warn(`Book (id: ${bookId}) not found`);
+        return;
+    }
+
+    myLibrary[bookIndex].changeReadStatus();
+
+    displayLibrary(myLibrary);
+}
+
 const deleteEvent = (event) => {
     const bookId = event.currentTarget.dataset.bookId;
-    const bookIndexToDelete = myLibrary.findIndex(book => book.id === bookId);
-    myLibrary.splice(bookIndexToDelete, 1);
+    const bookIndex = myLibrary.findIndex(book => book.id === bookId);
+
+    if (bookIndex === -1) {
+        console.warn(`Book (id: ${bookId}) not found`);
+        return;
+    }
+
+    myLibrary.splice(bookIndex, 1);
 
     displayLibrary(myLibrary);
 }
