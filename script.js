@@ -1,9 +1,9 @@
 const myLibrary = [
-    new Book("White Nights", "Fyodor Dostoevsky", "80", "Yes"),
-    new Book("Crime and Punishment", "Fyodor Dostoevsky", "500", "No"),
-    new Book("The Brothers Karamazov", "Fyodor Dostoevsky", "800", "No"),
-    new Book("Love Is a Dog from Hell", "Charles Bukowski", "300", "No"),
-    new Book("Post Office", "Charles Bukowski", "200", "Yes")
+    new Book("White Nights", "Fyodor Dostoevsky", 80, true),
+    new Book("Crime and Punishment", "Fyodor Dostoevsky", 500, false),
+    new Book("The Brothers Karamazov", "Fyodor Dostoevsky", 800, false),
+    new Book("Love Is a Dog from Hell", "Charles Bukowski", 300, false),
+    new Book("Post Office", "Charles Bukowski", 200, true)
 ];
 
 function Book(title, author, pages, read) {
@@ -26,21 +26,47 @@ function addBookToLibrary(title, author, pages, read) {
 function displayLibrary(library) {
     const libraryTableBody = document.querySelector("#library-table > tbody");
 
+    libraryTableBody.replaceChildren();
+
     library.forEach(book => {
         const newBookRow = libraryTableBody.insertRow(-1);
 
         const title = newBookRow.insertCell(0);
-        title.textContent = `${book.title}`;
+        title.textContent = book.title;
 
         const author = newBookRow.insertCell(1);
-        author.textContent = `${book.author}`;
+        author.textContent = book.author;
 
         const pages = newBookRow.insertCell(2);
-        pages.textContent = `${book.pages}`;
+        pages.textContent = book.pages;
 
         const read = newBookRow.insertCell(3);
-        read.textContent = `${book.read}`;
+        read.textContent = book.read ? "Yes" : "No";
     });
 }
+
+const addNewBookDialog = document.querySelector("dialog");
+const newBookForm = document.querySelector("form");
+
+newBookForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(newBookForm);
+
+    addBookToLibrary(
+        formData.get("title"),
+        formData.get("author"),
+        Number(formData.get("pages")),
+        formData.get("read") !== null,
+    );
+
+    displayLibrary(myLibrary);
+
+    addNewBookDialog.close();
+});
+
+addNewBookDialog.addEventListener("close", () => {
+    newBookForm.reset();
+});
 
 displayLibrary(myLibrary);
