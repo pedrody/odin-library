@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "Roboto";
+    src: url(fonts/roboto-variablefont_wdthwght.woff);
+    src: url(fonts/roboto-variablefont_wdthwght.woff2);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,10 +11,19 @@
     font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
 table {
     border-collapse: collapse;
     border: 2px solid rgb(200, 200, 200);
-
+    margin-bottom: 1rem;
 }
 
 td,
@@ -22,8 +37,105 @@ th {
     background-color: rgb(235, 235, 235);
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 caption {
     padding: 10px;
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    color: #4063fd;
+}
+
+dialog {
+    margin: auto;
+    padding: 2rem;
+    border: none;
+    border-radius: 10px;
+    width: 400px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+input {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+}
+
+input:focus {
+    outline-color: #4063fd;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 0.4rem;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.checkbox-group input {
+    width: 1rem;
+    height: 1rem;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.4rem;
+}
+
+.button-group button {
+    padding: 0.6rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #4063fd;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.button-group button:hover {
+    cursor: pointer;
+    background-color: #3552d4;
+}
+
+.button-group button[command="close"] {
+    background-color: #a4a6ac;
+}
+
+.button-group button[command="close"]:hover {
+    background-color: #8f9196;
+}
+
+dialog h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1.4rem;
+    color: #4063fd;
+}
+
+.new-book-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #4063fd;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.new-book-btn:hover {
+    cursor: pointer;
+    background-color: #3552d4;
 }

@@ -25,31 +25,33 @@
         </tbody>
     </table>
 
-    <button command="show-modal" commandfor="new-book-dialog">New Book</button>
+    <button class="new-book-btn" command="show-modal" commandfor="new-book-dialog">+</button>
 
     <dialog id="new-book-dialog">
+        <h1>Add a new book</h1>
+
         <form>
-            <p>
+            <div class="input-group">
                 <label for="title">Title: </label>
                 <input type="text" name="title" id="title" required>
-            </p>
+            </div>
 
-            <p>
+            <div class="input-group">
                 <label for="author">Author: </label>
                 <input type="text" name="author" id="author" required>
-            </p>
+            </div>
 
-            <p>
+            <div class="input-group">
                 <label for="pages">Pages: </label>
                 <input type="number" name="pages" id="pages" min="1" value="1" required>
-            </p>
+            </div>
 
-            <p>
+            <div class="checkbox-group">
+                <label for="read">Read: </label>
                 <input type="checkbox" name="read" id="read">
-                <label for="read">Read</label>
-            </p>
+            </div>
 
-            <div>
+            <div class="button-group">
                 <button type="button" command="close" commandfor="new-book-dialog">Close</button>
 
                 <button type="submit">Add</button>
