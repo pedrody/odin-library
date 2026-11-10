@@ -1,3 +1,17 @@
+class Book {
+    constructor(title, author, pages, read) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    changeReadStatus() {
+        this.read = !this.read;
+    }
+}
+
 const myLibrary = [
     new Book("White Nights", "Fyodor Dostoevsky", 80, true),
     new Book("Crime and Punishment", "Fyodor Dostoevsky", 500, false),
@@ -5,22 +19,6 @@ const myLibrary = [
     new Book("Love Is a Dog from Hell", "Charles Bukowski", 300, false),
     new Book("Post Office", "Charles Bukowski", 200, true)
 ];
-
-function Book(title, author, pages, read) {
-    if (!new.target) {
-        throw Error("Use the new keyword to create a book.");
-    }
-
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-Book.prototype.changeReadStatus = function () {
-    this.read = !this.read;
-}
 
 function addBookToLibrary(title, author, pages, read) {
     const book = new Book(title, author, pages, read);
