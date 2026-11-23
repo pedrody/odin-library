@@ -30,7 +30,7 @@
     <dialog id="new-book-dialog">
         <h1>Add a new book</h1>
 
-        <form>
+        <form novalidate>
             <div class="input-group">
                 <label for="title">Title: </label>
                 <input type="text" name="title" id="title" required>
@@ -50,6 +50,10 @@
                 <label for="read">Read: </label>
                 <input type="checkbox" name="read" id="read">
             </div>
+
+            <ul class="error-list" id="errorList">
+
+            </ul>
 
             <div class="button-group">
                 <button type="button" command="close" commandfor="new-book-dialog">Close</button>

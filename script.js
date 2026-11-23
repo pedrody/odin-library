@@ -99,18 +99,49 @@ const newBookForm = document.querySelector("form");
 newBookForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const formData = new FormData(newBookForm);
+    if (newBookForm.checkValidity()) {
+        const formData = new FormData(newBookForm);
 
-    addBookToLibrary(
-        formData.get("title"),
-        formData.get("author"),
-        Number(formData.get("pages")),
-        formData.get("read") !== null,
-    );
+        addBookToLibrary(
+            formData.get("title"),
+            formData.get("author"),
+            Number(formData.get("pages")),
+            formData.get("read") !== null,
+        );
 
-    displayLibrary(myLibrary);
+        displayLibrary(myLibrary);
 
-    addNewBookDialog.close();
+        addNewBookDialog.close();
+
+        return;
+    }
+
+    // invalid form
+
+    const errorList = document.getElementById("errorList");
+    errorList.textContent = "";
+
+    const title = document.getElementById("title");
+    const author = document.getElementById("author");
+    const pages = document.getElementById("pages");
+
+    if (!title.validity.valid) {
+        const error = document.createElement("li");
+        error.textContent = "Title must be filled."
+        errorList.appendChild(error);
+    }
+
+    if (!author.validity.valid) {
+        const error = document.createElement("li");
+        error.textContent = "Author must be filled."
+        errorList.appendChild(error);
+    }
+
+    if (!pages.validity.valid) {
+        const error = document.createElement("li");
+        error.textContent = "Pages must be filled and greater than 0.";
+        errorList.appendChild(error);
+    }
 });
 
 addNewBookDialog.addEventListener("close", () => {
